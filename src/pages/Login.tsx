@@ -12,8 +12,8 @@ function Login() {
   const onFinish = async (values: { username: string; password: string }) => {
     setLoading(true);
     try {
-      // Simple validation - in real app this would be an API call
-      if (values.username === values.password) {
+      // Allow only "admin" and "user" with password "123"
+      if ((values.username === 'admin' || values.username === 'user') && values.password === '123') {
         localStorage.setItem('currentUser', values.username);
         // Initialize metaDiaria for new users
         const userMetaKey = `metaDiaria_${values.username}`;
@@ -56,6 +56,7 @@ function Login() {
         >
           <Input.Password prefix={<IoLockClosed style={{ color: '#108ee9' }} />} />
         </Form.Item>
+        {error && <div style={{ color: 'red', marginBottom: '16px' }}>{error}</div>}
         <Form.Item>
           <Button 
             type="primary" 
